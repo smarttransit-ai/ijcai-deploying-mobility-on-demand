@@ -26,7 +26,7 @@ contains implementation of:
 ####  Other Directories and files
 1. [Google or-tools](https://developers.google.com/optimization)
 
-[data](data): contains the all data to run paratransit sample instances.
+[data](data): contains the all data to run paratransit sample instances. Please note this is synthetic data, and not the real-world data used in the paper for privacy purposes. 
 
 [core](core): contains the functionality related to working with the OSRM server
 
