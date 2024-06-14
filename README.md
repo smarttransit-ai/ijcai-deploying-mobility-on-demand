@@ -16,44 +16,48 @@ necessarily reflect the views of the National Science Foundation or the Departme
 
 ### Directories
 
-[algo](algo):
-contains implementation of,
-#### Our Algorithms
-1. [Online Solver](algo/)
-2. [Offline Solver](algo/)
+[notebooks](notebooks):
+contains implementation of:
+#### Our Solvers
+1. [Online Solver](notebooks/online.ipynb)
+2. [Offline Solver](notebooks/offline.ipynb)
 
 
-####  Wrapper for other existing baselines
+####  Other Directories and files
 1. [Google or-tools](https://developers.google.com/optimization)
-
-[base](base): contains the custom implementation to solve the para-transit optimization problem.
-
-[common](common): constants and common utilities shared by source files in other folders ([algo](algo), [base](base)).
 
 [data](data): contains the all data to run paratransit sample instances.
 
+[core](core): contains the functionality related to working with the OSRM server
 
-#### Data Folder Description:
-**Main Input Data**
+[bin](bin): contains script to start osrm server
 
-#### EVALUATION
+[config](config.py) : contains the configuration parameter for the solvers and OSRM server
+
+
+#### Set Up
 
 I) Normal Environment Setup (supports Linux and MacOSX):
 
-Please make sure the following before executing the scripts
-1. python 3.8
+Please make sure the following before executing the scripts and notebooks
+1. python 3.11.9
 2. Install all modules listed in "requirements.txt" (using the command pip install -r requirements.txt).
+3. Generate .env with OSRM_HOST and OSRM_PORT
+4. Set up OSRM Server
+
+Currently, we are running a single OSRM server. The optimizers rely on an OSRM server. Server should have about 16GB of RAM.
+
+If you want to build and push a new image the process and code is located at 
+[smarttransit-osrm-backend](https://github.com/smarttransit-ai/smarttransit-osrm-backend/tree/paratransit_software)
+which is the `smarttransit-osrm-backend` repository under the `paratransit_software` branch. README.md at that 
+location details that process.
+
+Start OSRM Server:
+
+```bash
+source .env
+bash bin/osrmserverrun.sh
+# test the OSRM server
+curl "http://$OSRM_HOST:$OSRM_PORT/table/v1/driving/-86.79426670074463,36.12473806954196;-86.7641830444336,36.13808266878191"
+```
   
-Sample Execution:
-
-1. Greedy Algorithm
-
-```bash
-python3 run_optimizer.py --algo=greedy --date=0
-```
-
-6. Google OR-Tools Routing
-
-```bash
-python3 run_optimizer.py --algo=routing --date=0
-```
